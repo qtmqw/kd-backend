@@ -1,16 +1,16 @@
 import React from 'react'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
-import Sort from '../components/Sort'
+import Kont from '../components/Kont'
 
-const Sortiments = () => {
+const Kontakti = () => {
   return (
-    <div className='flex flex-col h-screen justify-between'>
+    <div>
       <Navbar />
-      <Sort />
+      <Kont />
       <Footer />
     </div>
   )
 }
 
-export default Sortiments
+export default Kontakti

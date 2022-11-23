@@ -1,18 +1,17 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import Pm from '../components/Pm'
+import Saak from '../components/Saak'
 
 
-
-const Par_mums = () => {
+const Sakums = () => {
   return (
-    <div className='flex flex-col h-screen justify-between'>
+    <div>
       <Navbar />
-      <Pm />
+      <Saak />
       <Footer />
     </div>
   )
 }
 
-export default Par_mums
+export default Sakums

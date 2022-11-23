@@ -3,34 +3,36 @@ import {
     FaEnvelope,
     FaMobile,
     FaMapMarked
-  } from 'react-icons/fa';
+  } from 'react-icons/fa'
+import { Container } from 'react-bootstrap'
 
 const kont = () => {
   return (
-    <div className='w-full py-4 max-w-[1700px] mx-auto my-auto mt-[100px]'>
-        <div className='w-full '>
-            <div className='w-full mx-auto my-auto grid grid-cols-2 gap-4 py-4 mb-4'>
-                <h1 className='md:text-3xl sm:text-3xl text-3xl font-bold '>Kontakti</h1>
-                <div className='grid-cols-3 flex justify-between w-full mx-auto my-auto'>
-                    <div className='w-auto mx-auto my-auto max-w-auto flex clex-col'>
-                        <FaMobile className='w-4 h-9 mx-1'/><a href="" className='md:text-2xl sm:text-1xl text-1xl'><p>67382030, 20005038, 29462665</p></a> 
-                    </div>
-                    <div className='w-auto mx-auto my-auto max-w-auto flex clex-col'>
-                        <FaEnvelope className='w-6 h-10 mx-1'/><a href="mailto:abika@inbox.lv" className='md:text-2xl sm:text-1xl text-1xl'><p>abika@inbox.lv</p></a>
-                    </div>
-                    <div className='w-auto mx-auto my-auto max-w-auto flex clex-col'>
-                        <FaMapMarked className='w-6 h-9 mx-1'/><a href="" className='md:text-2xl sm:text-1xl text-1xl'><p>Vagonu iela 23, Rīga</p></a>
-                    </div>
+
+
+
+
+
+
+    <Container fluid className='py-16 max-w-[2000px] mx-auto'>
+
+        <h1 className='md:text-7xl sm:text-5xl text-3xl font-bold py-[90px] text-center my-5 '>Kontakti</h1>
+
+            <div className='w-auto flex mb-5 justify-end'>
+                <div className='flex clex-col md:mx-auto xl:mx-0'>
+                    <FaMobile className='xl:w-4 xl:h-9 mx-1'/><a href="" className='md:text-md sm:text-sm xl:text-2xl xl:mr-10 lg:mr-10 md:mr-10'><p>67382030, 20005038, 29462665</p></a> 
+                    <FaEnvelope className='xl:w-6 xl:h-10 mx-1'/><a href="mailto:abika@inbox.lv" className='md:text-md sm:text-sm xl:text-2xl xl:mr-10 lg:mr-10 md:mr-10 sm:mr-3'><p>abika@inbox.lv</p></a>
+                    <FaMapMarked className='xl:w-6 xl:h-9 mx-1'/><a href="" className='md:text-md sm:text-sm xl:text-2xl'><p>Vagonu iela 23, Rīga</p></a>
                 </div>
             </div>
-        </div>
+
         <div className=' mx-auto mb-10'>
             <iframe  width="100%" height='500px' frameborder="0" scrolling="yes"  src="https://maps.google.com/maps?width=683&amp;height=400&amp;hl=en&amp;q=Abika&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
         </div>
 
-        <div className='max-w-[1700px] mx-auto grid md:grid-cols-2'>
+        <div className='w-auto grid lg:grid-cols-2 md:grid-cols-1'>
 
-            <div className='flex flex-col  text-sm'>
+            <div className='flex flex-col text-lg mb-5'>
                     <p><span className='font-bold'>SIA Abika adrese:</span>Vagonu iela 23, Rīga, LV-1009</p>
                     <p><span className='font-bold'>Epasts:</span> abika@inbox.lv</p>
                     <p><span className='font-bold'>Telefons:</span>67382030, 20005038, 29462665</p>
@@ -44,7 +46,7 @@ const kont = () => {
 
             </div>
 
-            <div className='w-full shadow-xl bg-[#94abbd] relative flex flex-col p-4 md:my-0 my-8 rounded-lg'>
+            <div className='w-full shadow-xl bg-gray-300 relative flex flex-col p-4 md:my-0 my-8 rounded-lg'>
 
                 <h2 className='text-2xl font-bold mb-5'>Jautājiet mums</h2>
                 <form className="w-full "   >
@@ -89,7 +91,9 @@ const kont = () => {
                 <button className='bg-black text-white w-[150px] rounded-md font-medium  py-3 absolute bottom-0 right-0 mb-4 mr-4'>Nosūtīt</button>
             </div>
         </div>
-    </div>   
+    </Container>   
+
+
   )
 }
 
