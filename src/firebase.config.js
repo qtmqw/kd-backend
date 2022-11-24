@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app"
-import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from 'firebase/firestore'
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth } from 'firebase/auth'
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 
 const firebaseConfig = {
@@ -16,30 +15,7 @@ const firebaseConfig = {
 };
 
 
-export const app = initializeApp(firebaseConfig)
-export const analytics = getAnalytics(app)
-export const db = getFirestore(app)
-export const auth = getAuth(app)
-
-export function reg(email, password) {
-  createUserWithEmailAndPassword(auth, email, password);
-}
-
-export function login(email, password) {
-  signInWithEmailAndPassword(auth, email, password);
-}
-
-export function logout() {
-  signOut(auth)
-}
-
-export function useAuth() {
-  const [ currentUser, setCurrentUser ] = useState();
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, user =>  setCurrentUser(user))
-    return unsub;
-  }, []);
-
-  return currentUser
-}
+const app = initializeApp(firebaseConfig)
+export const firebaseAuth = getAuth()
+export const db = getFirestore(app);
+export const storage = getStorage(app);
