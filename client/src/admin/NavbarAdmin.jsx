@@ -21,7 +21,6 @@ const Navbarf = () => {
           <Nav className="gap-2 p-2 m-auto justify-center">
             <Nav.Link href="/admin/CRUD" className={(url === "/admin/CRUD" ? " active text-black uppercase rounded-lg bg-gray-300" : "text-black uppercase rounded-lg hover:bg-gray-400 duration-500")}>Pievienot Preci</Nav.Link>
             <Nav.Link href="/admin/PievienoPreci" className={(url === "/admin/PievienoPreci" ? " active text-black uppercase rounded-lg bg-gray-300" : "text-black uppercase rounded-lg hover:bg-gray-400 duration-500")}>Preces</Nav.Link>
-            <Nav.Link href="/admin/EditPreces" className={(url === "/admin/EditPreces" ? " active text-black uppercase rounded-lg bg-gray-300" : "text-black uppercase rounded-lg hover:bg-gray-400 duration-500")}>Labot Preci</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

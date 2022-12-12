@@ -9,21 +9,26 @@ const CRUD = () => {
 
     const [Nosaukums, setNosaukums] = useState('')
     const [Apraksts, setApraksts] = useState('')
-    const [Attels, setAttels] = useState('')
+    const [fileName, setFileName] = useState('')
     const [Krasa, setKrasa] = useState('')
     const [Cena, setCena] = useState('')
 
-    const changeOnClick = e => {
+    const onChangeFile = e => {
+        console.log(e.target.files[0])
+        setFileName(e.target.files[0])
+    }
 
-        const produkti = {
-            Attels,
-            Nosaukums,
-            Apraksts,
-            Krasa,
-            Cena
-        }
+    const changeOnClick = (e) => {
 
-        axios.post('http://localhost:8080/prod/add', produkti)
+        const formData = new FormData()
+
+        formData.append("Attels", fileName);
+        formData.append("Nosaukums", Nosaukums);
+        formData.append("Apraksts", Apraksts);
+        formData.append("Krasa", Krasa);
+        formData.append("Cena", Cena);
+
+        axios.post('http://localhost:8080/prod/add', formData)
             .then(res => console.log(res.data))
             .catch(err => {
                 console.log(err)
@@ -68,7 +73,7 @@ const CRUD = () => {
                                             <p className='mb-2 font-bold'>Attels</p>
                                             <div className='flex'>
                                                 <BsFillCloudUploadFill className='h-10 w-10' /> <span className='ml-5'>Ievietojiet bildi</span>
-                                                <input type='file' name='Attels' />
+                                                <input type='file' filename='Attels' className='form-control-file' onChange={onChangeFile}/>
                                             </div>
                                         </label>
                                     </div>

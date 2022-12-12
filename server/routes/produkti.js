@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Produkti = require('../models/Produkti')
-const multer = require("multer")
+const multer  = require('multer')
 
 
 // parādīt visas preces
@@ -11,34 +11,51 @@ router.get("/", (req, res) => {
     .catch(err => res.status(400).res.json(`Error: ${err}`))
 });
 
-//const storage = multer.diskStorage({
-//    destination: (req, file, cb) => {
-//        cb(null,'./upload')
-//    },
-//    filename: (req, file, cb) => {
- //       cb(null, Date.now() + "--" + file.originalname)
-//    }
-//})
+router.get('/search', async ( req, res) => {
+    try {
+        const {key, page, limit} = req.query
+        const skip = (page - 1) * limit
+        const search = key ? {
+            '$or': [
+                {Nosaukums: {$regex: key, $options: '$i'}},
+            ]
+        } : {}
+        const data = await Produkti.find(search)
+        .skip(skip).limit(limit)
+        res.json({
+            data
+        })
+    } catch (err) {
+        console.log(err)
+    }
+})
 
-//const upload = multer({storage: storage})
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null,'../client/public/uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname)
+    }
+})
 
-
-//app.post('/addI', upload.single('Attels'), (req, res) => {
-//
-//	console.log(req.file)
-//    res.send("Bilde tika seivota")
-//});
-
+const upload = multer({storage: storage})
 
 //  pievienot preci
-router.post('/add', async (req, res) => {
+router.post('/add', upload.single('Attels'), (req, res) => {
 
-	const newProdukti = new Produkti(req.body);
-	 await newProdukti.save();
+	const newProdukti = new Produkti({
+        Attels: req.file.originalname,
+        Nosaukums: req.body.Nosaukums,
+        Apraksts: req.body.Apraksts,
+        Krasa: req.body.Krasa,
+        Cena: req.body.Cena
+    });
 
-	res.status(201).json({
-		message: "Produkti tika seivoti",
-	});
+    newProdukti
+    .save()
+    .then(() => res.json('Produkti tika seivoti'))
+    .catch((err) => res.status(400).json(`Error: ${err}`))
 })
 
 // meklēt produktu pec id
@@ -51,8 +68,7 @@ router.get('/:id', (req, res) => {
 // meklēt produktu pec id un atjaunot
 router.put('/update/:id', (req, res) => {
     Produkti.findById(req.params.id)
-    .then (produkti => {
-        //produkti.Attels = req.body.Attels,
+    .then ((produkti) => {
         produkti.Nosaukums = req.body.Nosaukums,
         produkti.Apraksts = req.body.Apraksts,
         produkti.Krasa = req.body.Krasa,

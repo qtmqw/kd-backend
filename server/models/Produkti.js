@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 
 
 const ProduktiSchema = new mongoose.Schema({
-    //Attels: {
-    //    type: String,
-    //    required: true,
-    //},
+    Attels: {
+        type: String,
+        required: true,
+    },
     Nosaukums: {    
         type: String,
         required: true,
@@ -15,7 +15,7 @@ const ProduktiSchema = new mongoose.Schema({
         required: true,
     },
     Krasa: {
-        type: String,
+        type: [String],
         required: true,
     },
     Cena: {

@@ -11,6 +11,7 @@ import PievienoPreci from './admin/PievienoPreci'
 import Profils from './pages/Profils'
 import CRUD from './admin/CRUD'
 import EditPreces from './admin/EditPreces'
+import Produkts from './pages/Produkts'
 
 
 import { ToastContainer } from 'react-toastify';
@@ -20,6 +21,7 @@ import { UserContext } from './UserContext'
 import { Routes, Route, Navigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getUser } from './api/lietotajs'
+
 
 
 
@@ -48,6 +50,7 @@ function App() {
             <Route path="Par_mums" element={<Par_mums />} />
             <Route path="Sortiments" element={<Sortiments />} />
             <Route path="Kontakti" element={<Kontakti />} />
+            <Route path="Produkts/:id" element={<Produkts />} />
             <Route path="Registreties" element={
               user ? (
                 <Navigate replace to="/" />
@@ -67,7 +70,7 @@ function App() {
             <Route path="admin">
               <Route path="CRUD" element={<CRUD />} />
               <Route path="PievienoPreci" element={<PievienoPreci />} />
-              <Route path="EditPreces" element={<EditPreces />} />
+              <Route path="EditPreces/update/:id" element={<EditPreces />} />
             </Route>
             <Route path="lietotajs">
               <Route path="Profils" element={<Profils />} />

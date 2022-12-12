@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { Container } from 'react-bootstrap'
-import { BsFillCloudUploadFill } from 'react-icons/bs'
 import NavbarAdmin from './NavbarAdmin'
 import axios from 'axios'
 
 
-const CRUD = () => {
+const Edit = () => {
 
     const [Nosaukums, setNosaukums] = useState('')
     const [Apraksts, setApraksts] = useState('')
@@ -21,7 +20,7 @@ const CRUD = () => {
             Cena
         }
 
-        axios.post('http://localhost:8080/prod/add', produkti)
+        axios.post('http://localhost:8080/prod/update/:id', produkti)
             .then(res => console.log(res.data))
             .catch(err => {
                 console.log(err)
@@ -34,7 +33,7 @@ const CRUD = () => {
             <Container fluid className='max-w-[1000px]'>
 
                 <h1 className='md:text-7xl sm:text-5xl text-3xl font-bold pt-[90px] text-center my-5 '>Labot Preci</h1>
-                <form onSubmit={changeOnClick} encType='multipart/form-data'>
+                <form onSubmit={changeOnClick}>
                     <div className='py-[140px]'>
                         <div className='w-full mb-4 bg-gray-300 p-10 rounded-lg relative '>
                             <form >
@@ -56,17 +55,6 @@ const CRUD = () => {
                                             <textarea className="w-full mx-auto bg-white text-gray-700 border rounded form-control block px-3 py-1.5 text-base font-normal transition ease-in-out m-0"
                                                 id="exampleFormControlTextarea1" rows="3" required value={Apraksts} type="text" placeholder='Apraksts . . . ' onChange={e => setApraksts(e.target.value)}
                                             />
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div className="mb-6">
-                                    <div className="px-3 mb-6 md:mb-0">
-                                        <label htmlFor='file' className="block uppercase tracking-wide text-gray-700 text-md">
-                                            <p className='mb-2 font-bold'>Attels</p>
-                                            <div className='flex'>
-                                                <BsFillCloudUploadFill className='h-10 w-10' /> <span className='ml-5'>Ievietojiet bildi</span>
-                                            </div>
                                         </label>
                                     </div>
                                 </div>
@@ -106,4 +94,4 @@ const CRUD = () => {
     )
 }
 
-export default CRUD
+export default Edit

@@ -1,12 +1,9 @@
-import Drebes2 from '../assets/drebes2.jpeg'
-import Container from 'react-bootstrap/Container'
-import { Button } from '@material-tailwind/react';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Card from 'react-bootstrap/Card';
 import React, { useState, useEffect } from 'react'
-
-
+import { Container, Form, InputGroup, Card } from 'react-bootstrap';
+import { Button } from '@material-tailwind/react';
+import axios from 'axios';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const Sort = () => {
 
@@ -22,81 +19,126 @@ const Sort = () => {
     prece()
   }, [])
 
+  const [searchRes, setSearchRes] = useState([])
+  const [key, setKey] = useState('')
+  useEffect(() => {
+    const search = async () => {
+      try {
+        if (!key.trim()) {
+          setSearchRes([])
+          return
+        }
+        const res = await axios.get('http://localhost:8080/prod/search', { params: { key: key, limit: 5 } })
+        setSearchRes(res.data.data)
+        console.log(res)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    search()
+  }, [key])
+
+
   return (
     <>
 
       <Container fluid>
 
+        <div className='shadow-xl bg-gray-300 flex flex-col p-3 my-5 rounded-xl'>
+          <h1 className='text-center font-bold text-2xl mb-4'>Kategorijas</h1>
+          <div className='flex flex-row gap-4 justify-center'>
 
+            <DropdownButton title="Dzimums" className='bg-black text-white rounded-lg '>
+              <Dropdown.Item>Sieviešu</Dropdown.Item>
+              <Dropdown.Item>Vīriešu</Dropdown.Item>
+            </DropdownButton>
 
-        <div className='shadow-xl bg-gray-300 flex flex-col p-3 my-5 rounded-full'>
-          <InputGroup className="max-w-xl mx-auto font-semibold">
-            <Form.Control
-              placeholder="Meklēt"
-            />
-            <Button variant="dark" className='bg-black text-white px-3'>
-              Meklēt
-            </Button>
-          </InputGroup>
+            <DropdownButton title="Krāsa" className='bg-black text-white rounded-lg'>
+              <Dropdown.Item className='font-semibold'>Balta</Dropdown.Item>
+              <Dropdown.Item className='font-semibold'>Melna</Dropdown.Item>
+              <Dropdown.Item className='text-blue-600 font-semibold'>Zila</Dropdown.Item>
+              <Dropdown.Item className='text-green-600 font-semibold'>Zaļa</Dropdown.Item>
+              <Dropdown.Item className='text-yellow-600 font-semibold'>Dzeltena</Dropdown.Item>
+              <Dropdown.Item className='text-orange-600 font-semibold'>Oranža</Dropdown.Item>
+              <Dropdown.Item className='text-gray-600 font-semibold'>Pelēka</Dropdown.Item>
+              <Dropdown.Item className='text-violet-600 font-semibold'>Violēta</Dropdown.Item>
+              <Dropdown.Item className='text-fuchsia-600 font-semibold'>Roza</Dropdown.Item>
+              <Dropdown.Item className='text-red-600 font-semibold'>Sarkana</Dropdown.Item>
+              <Dropdown.Item className='text-blue-600 font-semibold'>Brūna</Dropdown.Item>
+            </DropdownButton>
+
+            <DropdownButton title="Papildus" className='bg-black text-white rounded-lg'>
+              <Dropdown.Item>Apavi</Dropdown.Item>
+              <Dropdown.Item>Aksesuāri</Dropdown.Item>
+              <Dropdown.Item>Veļa</Dropdown.Item>
+            </DropdownButton>
+
+          </div>
         </div>
 
-
-
         <div className='lg:flex'>
-          <div className='bg-gray-300 p-3 rounded-3xl xl:w-[1500px] lg:w-[1500px] mr-10 '>
-            <h1 className='mx-auto my-auto text-center font-bold text-2xl'>Filtrs</h1>
-            <div className='mb-3'>
-              <h2 className='font-semibold'>Kategorijas:</h2>
-              <p>Sieviešu apģērbi</p>
-              <p>Vīriešu apģērbi</p>
-              <p>Veļa</p>
-              <p>Apavi</p>
-              <p>Aksesuāri</p>
+          <div className=' relative'>
+            <div className='shadow-xl bg-gray-300 flex flex-col p-3 rounded-xl w-[400px] mr-3' >
+              <h1 className='text-center font-bold text-2xl mb-4'>Kategorijas</h1>
+              <div className='flex gap-3'>
+                <Form.Check type="checkbox" /><span>Vīriešu</span>
+                <Form.Check type="checkbox" /><span>Vīriešu</span>
+                <Form.Check type="checkbox" /><span>Vīriešu</span>
+                <Form.Check type="checkbox" /><span>Vīriešu</span>
+              </div>
             </div>
-
-            <div className='mb-3'>
-              <h2 className='font-semibold'>Krāsas:</h2>
-              <p>Zils</p>
-              <p>Sarkans</p>
-              <p>Zaļš</p>
-              <p>Melns</p>
-              <p>Balts</p>
-            </div>
-
-            <div>
-              <h2 className='font-semibold'>Izmēri:</h2>
-              <p>XXL</p>
-              <p>XL</p>
-              <p>L</p>
-              <p>M</p>
-              <p>S</p>
-              <p>XS</p>
+            <div className='shadow-xl bg-gray-300 flex flex-col p-3 rounded-xl w-[400px] mr-3' >
+              <InputGroup className="max-w-xl font-semibold mb-3">
+                <Form.Control
+                  placeholder="Meklēt" type='search' onChange={(e) => setKey(e.target.value)} value={key}
+                />
+              </InputGroup>
+              {searchRes && searchRes.length > 0 && (
+                <div>
+                  {searchRes.map(produkti => (
+                    <div className="md:flex" key={produkti._id}>
+                      <div className="md:flex-shrink-0">
+                        <img className="rounded-lg md:w-28 max-h-28" src={`../../public/uploads/${produkti.Attels}`} />
+                      </div>
+                      <div className="mt-4 md:mt-0 md:ml-6">
+                        <div className="uppercase tracking-wide text-sm font-bold">
+                          {produkti.Nosaukums}
+                        </div>
+                        <p className="mt-2 text-gray-600">
+                          {produkti.Apraksts}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
-            <div className='grid xl:grid-cols-4 lg:grid-cols-3 mb-5 gap-8 w-auto'>
-              {data.map(produkti =>
-                <Card value='apavi' className='bg-gray-300 lg:mb-0 md:mb-3 xl:w-auto lg:w-auto md:w-[500px] mx-auto'>
-                  <Card.Img variant="top" src={produkti.Attels} className='p-3' />
-                  <Card.Body>
-                    <Card.Title className=' text-center'>{produkti.Nosaukums}</Card.Title>
-                    <Card.Text className='border-b-[1px] border-gray-500 pb-3'>
-                      Apraksts: {produkti.Apraksts}
-                    </Card.Text>
-                    <Card.Text className='border-b-[1px] border-gray-500 pb-3'>
-                      Krāsa: {produkti.Krasa}
-                    </Card.Text>
-                    <Card.Text className='border-b-2 border-gray-500 pb-3'>
-                      Cena: {produkti.Cena}€
-                    </Card.Text>
-                    <div className='d-grid flex'>
-                      <Button variant="dark" className='rounded-full bg-black text-white  py-2 font-medium my-2'>Apskatīt</Button>
-                      <Button variant="dark" className='rounded-full bg-black text-white  py-2 font-medium my-2'>Apskatīt</Button>
-                    </div>
-                  </Card.Body>
-                </Card>
-              )}
-            </div>
+          <div className='grid xl:grid-cols-4 lg:grid-cols-3 mb-5 gap-8 max-w-auto'>
+            {data.map(produkti =>
+              <Card value='apavi' className='bg-gray-300 lg:mb-0 md:mb-3 xl:w-auto lg:w-auto md:w-[500px] mx-auto'>
+                <Card.Img variant="top" src={`../../public/uploads/${produkti.Attels}`} className='p-3 w-[2000px] h-[400px]' />
+                <Card.Body>
+                  <Card.Title className=' text-center'>{produkti.Nosaukums}</Card.Title>
+                  <Card.Text className='border-b-[1px] border-gray-500 pb-3'>
+                    Apraksts: {produkti.Apraksts}
+                  </Card.Text>
+                  <Card.Text className='border-b-[1px] border-gray-500 pb-3'>
+                    Krāsa: {produkti.Krasa}
+                  </Card.Text>
+                  <Card.Text className='border-b-2 border-gray-500 pb-3'>
+                    Cena: {produkti.Cena}€
+                  </Card.Text>
+                  <div className='d-grid flex'>
+                    <a className='rounded-full bg-black text-white text-center font-medium my-2' href={`/Produkts/${produkti._id}`}>
+                      <Button variant="dark" className='py-2 my-2'>Apskatīt</Button>
+                    </a>
+                  </div>
+                </Card.Body>
+              </Card>
+            )}
+          </div>
         </div>
       </Container>
     </>

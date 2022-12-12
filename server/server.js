@@ -7,7 +7,7 @@ const cors = require("cors");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const expressValidator = require("express-validator");
-
+const bodyParser = require("body-parser");
 
 
 // app
@@ -29,15 +29,17 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(expressValidator());;
-
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
 
 // routes
 
 const userRoutes = require("./routes/lietotajs");
 app.use("/", userRoutes);
 
-const produktiRoutes = require('./routes/produkti')
+const produktiRoutes = require('./routes/produkti');
 app.use('/prod', produktiRoutes)
+
 // port
 const port = process.env.PORT || 8080
 
