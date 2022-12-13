@@ -1,8 +1,10 @@
+import {registerR, loginR, logoutR, userR} from '../utils/APIRoutes'
+
 export const register = async ({ username, email, password } = {}) => {
 	const user = { username, email, password };
 
 	try {
-		const res = await fetch(`http://localhost:8080/register`, {
+		const res = await fetch(`${registerR}`, {
 			method: "POST",
 			headers: {
 				Accept: "application/json",
@@ -21,7 +23,7 @@ export const login = async ({ email, password } = {}) => {
 	const user = { email, password };
 
 	try {
-		const res = await fetch(`http://localhost:8080/login`, {
+		const res = await fetch(`${loginR}`, {
 			method: "POST",
 			credentials: "include",
 			headers: {
@@ -39,7 +41,7 @@ export const login = async ({ email, password } = {}) => {
 
 export const logout = async () => {
 	try {
-		const res = await fetch(`http://localhost:8080/logout`, {
+		const res = await fetch(`${logoutR}`, {
 			method: "GET",
 			credentials: "include",
 		});
@@ -51,7 +53,7 @@ export const logout = async () => {
 
 export const getUser = async () => {
 	try {
-		const res = await fetch(`http://localhost:8080/user`, {
+		const res = await fetch(`${userR}`, {
 			method: "GET",
 			credentials: "include",
 		});

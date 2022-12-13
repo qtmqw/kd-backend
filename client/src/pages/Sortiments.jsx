@@ -5,12 +5,14 @@ import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
+import { productsR, searchR } from '../utils/APIRoutes'
+
 const Sort = () => {
 
   const [data, setData] = useState([])
   useEffect(() => {
     const prece = async () => {
-      const result = await fetch('http://localhost:8080/prod')
+      const result = await fetch(`${productsR}`)
       const jsonResult = await result.json()
 
       setData(jsonResult)
@@ -28,7 +30,7 @@ const Sort = () => {
           setSearchRes([])
           return
         }
-        const res = await axios.get('http://localhost:8080/prod/search', { params: { key: key, limit: 5 } })
+        const res = await axios.get(`${searchR}`, { params: { key: key, limit: 5 } })
         setSearchRes(res.data.data)
         console.log(res)
       } catch (err) {

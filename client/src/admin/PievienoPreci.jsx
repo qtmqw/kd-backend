@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { Button } from '@material-tailwind/react'
-import Card from 'react-bootstrap/Card';
+import { Card, Form, InputGroup } from 'react-bootstrap';
 import NavbarAdmin from './NavbarAdmin'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
+
+import { productsR, deleteR, searchR } from '../utils/APIRoutes'
+
 
 const PievienoPreci = () => {
   const [data, setData] = useState([])
   useEffect(() => {
     const prece = async () => {
-      const result = await fetch('http://localhost:8080/prod')
+      const result = await fetch(`${productsR}`)
       const jsonResult = await result.json()
 
       setData(jsonResult)
@@ -22,7 +23,7 @@ const PievienoPreci = () => {
 
   const [produkti, setProdukti] = useState([])
   const deletePrece = id => {
-    axios.delete(`http://localhost:8080/prod/${id}`)
+    axios.delete(`${deleteR}${id}`)
       .then(res => alert(res.data))
     setProdukti(produkti.filter(elem => elem._id !== id))
   }
@@ -36,7 +37,7 @@ const PievienoPreci = () => {
           setSearchRes([])
           return
         }
-        const res = await axios.get('http://localhost:8080/prod/search', { params: { key: key, limit: 5 } })
+        const res = await axios.get(`${searchR}`, { params: { key: key, limit: 5 } })
         setSearchRes(res.data.data)
         console.log(res)
       } catch (err) {
@@ -87,7 +88,7 @@ const PievienoPreci = () => {
               <Card.Img variant="top" src={`../../public/uploads/${produkti.Attels}`} className='p-3 w-[2000px] h-[400px]' />
               <Card.Body>
                 <Link to={{
-                  pathname: `http://localhost:8080/prod/${produkti._id}`
+                  pathname: `${productsR}${produkti._id}`
                 }}>
                   <Card.Title className=' text-center'>{produkti.Nosaukums}</Card.Title>
                 </Link>

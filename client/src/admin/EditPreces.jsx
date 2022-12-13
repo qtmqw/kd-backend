@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Container } from 'react-bootstrap'
 import NavbarAdmin from './NavbarAdmin'
 import axios from 'axios'
-
+import { editR } from '../utils/APIRoutes'
 
 const Edit = () => {
 
@@ -20,7 +20,7 @@ const Edit = () => {
             Cena
         }
 
-        axios.post('http://localhost:8080/prod/update/:id', produkti)
+        axios.post(`${editR}`, produkti)
             .then(res => console.log(res.data))
             .catch(err => {
                 console.log(err)

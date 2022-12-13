@@ -4,6 +4,8 @@ import { BsFillCloudUploadFill } from 'react-icons/bs'
 import NavbarAdmin from './NavbarAdmin'
 import axios from 'axios'
 
+import { addR } from '../utils/APIRoutes'
+
 
 const CRUD = () => {
 
@@ -28,7 +30,7 @@ const CRUD = () => {
         formData.append("Krasa", Krasa);
         formData.append("Cena", Cena);
 
-        axios.post('http://localhost:8080/prod/add', formData)
+        axios.post(`${addR}`, formData)
             .then(res => console.log(res.data))
             .catch(err => {
                 console.log(err)

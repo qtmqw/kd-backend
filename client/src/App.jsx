@@ -50,7 +50,7 @@ function App() {
             <Route path="Par_mums" element={<Par_mums />} />
             <Route path="Sortiments" element={<Sortiments />} />
             <Route path="Kontakti" element={<Kontakti />} />
-            <Route path="Produkts/:id" element={<Produkts />} />
+            <Route path="Produkts" element={<Produkts />} />
             <Route path="Registreties" element={
               user ? (
                 <Navigate replace to="/" />

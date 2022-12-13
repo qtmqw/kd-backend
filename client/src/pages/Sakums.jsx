@@ -4,10 +4,7 @@ import Drebes2 from '../assets/drebes2.jpeg'
 import Drebes3 from '../assets/drebes3.jpeg'
 import Drebes4 from '../assets/drebes4.jpeg'
 import Drebes5 from '../assets/drebes5.jpeg'
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import Carousel from 'react-bootstrap/Carousel'
-import Container from 'react-bootstrap/Container'
+import { Button, Card, Carousel, Container } from 'react-bootstrap';
 
 
 const Saak = () => {
